@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>贪吃蛇游戏</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>贪吃蛇游戏</h1>
+        
+        <div class="game-controls">
+            <div class="control-group">
+                <label for="mapSize">地图大小:</label>
+                <select id="mapSize">
+                    <option value="small">小</option>
+                    <option value="medium" selected>中</option>
+                    <option value="large">大</option>
+                </select>
+            </div>
+            
+            <div class="control-group">
+                <label for="gameSpeed">游戏速度:</label>
+                <input type="range" id="gameSpeed" min="50" max="300" value="150" step="10">
+                <span id="speedValue">150</span>
+            </div>
+            
+            <button id="startBtn" class="btn">开始游戏</button>
+        </div>
+        
+        <div class="game-container">
+            <div class="game-info">
+                <div class="score">
+                    <h3>分数</h3>
+                    <p id="scoreValue">0</p>
+                </div>
+                <div class="high-score">
+                    <h3>最高分</h3>
+                    <p id="highScoreValue">0</p>
+                </div>
+            </div>
+            
+            <div class="game-canvas-wrapper">
+                <!-- 左侧加速按钮 -->
+                <button id="mobileSpeedBtn" class="mobile-speed-btn btn">加速</button>
+                
+                <canvas id="gameCanvas" width="400" height="400"></canvas>
+            </div>
+            
+            <!-- 开始游戏覆盖层 -->
+            <div class="start-game-overlay" id="startGameOverlay">
+                <div class="overlay-content">
+                    <button id="playBtn" class="btn play-btn">开始游戏</button>
+                </div>
+            </div>
+            
+            <!-- 继续游戏按钮 -->
+            <div class="continue-btn" id="continueBtn">
+                <button class="btn">继续游戏</button>
+            </div>
+            
+            <!-- 游戏控制按钮 -->
+            <div class="game-controls-bottom">
+                <button id="pauseBtn" class="btn">暂停</button>
+                <button id="restartBtn" class="btn">重新开始</button>
+            </div>
+        </div>
+        
+        <div class="game-over" id="gameOver">
+            <div class="game-over-content">
+                <h2>游戏结束</h2>
+                <p>你的分数: <span id="finalScore"></span></p>
+                <button id="restartGameOverBtn" class="btn">再来一局</button>
+            </div>
+        </div>
+        
+        <!-- 操作规则说明 -->
+        <div class="game-instructions">
+            <h3>操作规则</h3>
+            <ul>
+                <li>点击<strong>开始游戏</strong>按钮或按<strong>方向键/WASD键</strong>开始游戏</li>
+                <li>使用<strong>方向键或WASD键</strong>控制贪吃蛇的移动方向（W上、S下、A左、D右）</li>
+                <li>按<strong>空格键</strong>或点击<strong>暂停</strong>按钮可以暂停/继续游戏</li>
+                <li>按住<strong>Shift键</strong>可以加速贪吃蛇移动，速度为当前速度的1.15倍</li>
+                <li>游戏暂停后，点击<strong>继续游戏</strong>按钮或按<strong>空格键</strong>恢复游戏</li>
+                <li>点击<strong>重新开始</strong>按钮可以随时重新开始游戏</li>
+                <li>贪吃蛇可以<strong>穿过边界</strong>从另一端出现</li>
+                <li>吃到食物后蛇身会变长，撞到自己则游戏结束</li>
+                <li>通过上方控制栏可以调整<strong>地图大小</strong>和<strong>游戏速度</strong>：
+                    <ul style="margin-top: 5px;">
+                        <li>小地图：20×20网格</li>
+                        <li>中地图：30×30网格</li>
+                        <li>大地图：50×50网格</li>
+                    </ul>
+                </li>
+                <li>移动端用户可以通过<strong>滑动屏幕</strong>来控制方向</li>
+            </ul>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>

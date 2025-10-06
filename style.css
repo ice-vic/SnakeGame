@@ -1,0 +1,597 @@
+/* 全局样式和重置 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Rajdhani', 'Segoe UI', sans-serif;
+}
+
+/* 加载赛博朋克风格字体 */
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&display=swap');
+
+body {
+    background-color: #0a0a12;
+    background-image: 
+        radial-gradient(circle at 20% 30%, rgba(255, 42, 109, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(5, 217, 232, 0.05) 0%, transparent 50%),
+        linear-gradient(45deg, #0a0a12 25%, transparent 25%, transparent 75%, #0a0a12 75%, #0a0a12),
+        linear-gradient(45deg, #0a0a12 25%, #0c0c16 25%, #0c0c16 75%, #0a0a12 75%, #0a0a12);
+    background-size: 100% 100%, 100% 100%, 20px 20px, 20px 20px;
+    background-position: 0 0, 0 0, 0 0, 10px 10px;
+    color: #e0e0e0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    position: relative;
+}
+
+/* 网格线动画效果 */
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        linear-gradient(to bottom, rgba(5, 217, 232, 0.1) 1px, transparent 1px),
+        linear-gradient(to right, rgba(5, 217, 232, 0.1) 1px, transparent 1px);
+    background-size: 50px 50px;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.container {
+    width: 100%;
+    max-width: 800px;
+    padding: 20px;
+    text-align: center;
+}
+
+/* 标题样式 - 赛博朋克风格 */
+h1 {
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: #ff2a6d;
+    margin-bottom: 30px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-shadow: 
+        0 0 5px #ff2a6d,
+        0 0 10px #ff2a6d,
+        0 0 20px #ff2a6d;
+    position: relative;
+    z-index: 1;
+}
+
+/* 游戏控制区域 - 赛博朋克风格 */
+.game-controls {
+    background-color: rgba(10, 10, 18, 0.9);
+    border: 2px solid #00ccff;
+    border-radius: 10px;
+    padding: 15px 25px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 20px rgba(0, 204, 255, 0.3);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    backdrop-filter: blur(5px);
+    position: relative;
+    z-index: 1;
+}
+
+.control-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.control-group label {
+    font-weight: 500;
+    color: #6e6e73;
+    font-size: 0.95rem;
+}
+
+/* 下拉选择框样式 - 赛博朋克风格 */
+#mapSize {
+    background-color: rgba(10, 10, 18, 0.8);
+    border: 1px solid #05d9e8;
+    border-radius: 5px;
+    padding: 8px 12px;
+    font-size: 0.95rem;
+    color: #05d9e8;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.2s;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+#mapSize:hover {
+    background-color: rgba(5, 217, 232, 0.1);
+    box-shadow: 0 0 8px rgba(5, 217, 232, 0.5);
+}
+
+#mapSize option {
+    background-color: #0a0a12;
+    color: #05d9e8;
+}
+
+
+/* 滑块样式 - 赛博朋克风格 */
+#gameSpeed {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 150px;
+    height: 4px;
+    border-radius: 2px;
+    background: #1a1a2e;
+    outline: none;
+    position: relative;
+}
+
+#gameSpeed::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: var(--value, 50%);
+    background: linear-gradient(90deg, #05d9e8, #ff2a6d);
+    border-radius: 2px;
+}
+
+#gameSpeed::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #e0e0e0;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: 2px solid #ff9500;
+    box-shadow: 0 0 10px rgba(255, 149, 0, 0.7);
+    z-index: 1;
+    position: relative;
+}
+
+#gameSpeed::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+    box-shadow: 0 0 15px rgba(255, 42, 109, 0.9);
+}
+
+#gameSpeed::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #e0e0e0;
+    cursor: pointer;
+    border: 2px solid #ff2a6d;
+    transition: all 0.2s;
+    box-shadow: 0 0 10px rgba(255, 42, 109, 0.7);
+    position: relative;
+    z-index: 1;
+}
+
+#gameSpeed::-moz-range-thumb:hover {
+    transform: scale(1.2);
+    box-shadow: 0 0 15px rgba(255, 42, 109, 0.9);
+}
+
+#speedValue {
+    font-weight: 600;
+    color: #05d9e8;
+    min-width: 40px;
+    text-shadow: 0 0 5px rgba(5, 217, 232, 0.7);
+}
+
+
+/* 按钮样式 - 赛博朋克风格 */
+.btn {
+    background: linear-gradient(45deg, rgba(255, 149, 0, 0.1), rgba(0, 204, 255, 0.1));
+    color: #00ccff;
+    border: 2px solid #ff9500;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    outline: none;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 204, 255, 0.5);
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 204, 255, 0.2), transparent);
+    transition: all 0.5s;
+}
+
+.btn:hover {
+    box-shadow: 0 0 20px rgba(0, 204, 255, 0.7),
+                inset 0 0 10px rgba(255, 149, 0, 0.3);
+    text-shadow: 0 0 5px rgba(0, 204, 255, 0.7);
+}
+
+.btn:hover::before {
+    left: 100%;
+}
+
+.btn:active {
+    transform: translateY(0);
+    box-shadow: 0 0 10px rgba(0, 204, 255, 0.9),
+                inset 0 0 20px rgba(255, 149, 0, 0.5);
+}
+
+
+/* 游戏容器样式 */
+.game-container {
+    position: relative;
+    margin: 20px auto;
+    width: fit-content;
+    padding: 20px;
+    background-color: rgba(10, 10, 18, 0.8);
+    border-radius: 10px;
+    border: 2px solid #ff2a6d;
+    box-shadow: 0 0 20px rgba(255, 42, 109, 0.3);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+
+/* 游戏画布包装器 */
+.game-canvas-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    position: relative;
+}
+
+/* 移动端加速按钮 */
+.mobile-speed-btn {
+    width: 80px; /* 缩小5倍 */
+    height: 80px; /* 缩小5倍 */
+    border-radius: 50%;
+    font-size: 0.8rem; /* 字体也缩小5倍 */
+    padding: 0;
+    background: linear-gradient(45deg, #ff9500, #ff2a6d);
+    color: white;
+    border: none;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 50px rgba(255, 149, 0, 0.5);
+    transition: all 0.3s ease;
+}
+
+.mobile-speed-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: all 0.5s;
+}
+
+.mobile-speed-btn:hover {
+    box-shadow: 0 0 30px rgba(255, 42, 109, 0.7);
+    transform: scale(1.05);
+}
+
+.mobile-speed-btn:active {
+    transform: scale(0.95);
+    box-shadow: 0 0 15px rgba(255, 42, 109, 0.9);
+}
+
+/* 开始游戏覆盖层 */
+.start-game-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(10, 10, 18, 0.95);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    z-index: 10;
+}
+
+.overlay-content {
+    text-align: center;
+    color: #e0e0e0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.overlay-content h2 {
+    margin-bottom: 20px;
+    font-size: 2rem;
+    color: #ff2a6d;
+    text-shadow: 0 0 10px rgba(255, 42, 109, 0.7);
+}
+
+/* 开始游戏按钮特殊样式 */
+.play-btn {
+    padding: 15px 40px;
+    font-size: 1.3rem;
+    background: linear-gradient(45deg, #ff9500, #ff2a6d);
+    border: none;
+    color: white;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 20px rgba(255, 149, 0, 0.7);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.play-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 30px rgba(255, 42, 109, 0.9);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+}
+
+.play-btn:active {
+    transform: scale(0.98);
+    box-shadow: 0 0 15px rgba(255, 42, 109, 0.9),
+                inset 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+/* 继续游戏按钮 */
+.continue-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 15;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: none; /* 默认隐藏，通过JS控制显示 */
+}
+
+.continue-btn .btn {
+    padding: 12px 30px;
+    font-size: 1.2rem;
+    background: linear-gradient(45deg, #ff9500, #00ccff);
+    border: none;
+    color: white;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 20px rgba(0, 204, 255, 0.5);
+    display: inline-block;
+}
+
+.continue-btn .btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 30px rgba(211, 0, 197, 0.7);
+}
+
+/* 游戏底部控制按钮 */
+.game-controls-bottom {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+/* 画布样式 - 赛博朋克风格 */
+#gameCanvas {
+    background-color: #000000; /* 黑色背景 */
+    border-radius: 10px;
+    box-shadow: 
+        0 0 20px rgba(0, 204, 255, 0.3),
+        inset 0 0 30px rgba(255, 149, 0, 0.1);
+    border: 2px solid #00ccff;
+    backdrop-filter: blur(5px);
+}
+
+
+/* 游戏信息区域 */
+.game-info {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.score, .high-score {
+    background-color: rgba(10, 10, 18, 0.8);
+    border: 1px solid #00ccff;
+    border-radius: 10px;
+    padding: 15px 25px;
+    box-shadow: 0 0 10px rgba(0, 204, 255, 0.3);
+    min-width: 120px;
+    text-align: center;
+    backdrop-filter: blur(5px);
+}
+
+.score h3, .high-score h3 {
+    font-size: 0.9rem;
+    color: #ff9500;
+    margin-bottom: 10px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-shadow: 0 0 5px rgba(255, 149, 0, 0.5);
+}
+
+.score p, .high-score p {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #00ccff;
+    text-shadow: 0 0 10px rgba(0, 204, 255, 0.5);
+}
+
+/* 游戏结束弹窗 - 赛博朋克风格 */
+.game-over {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(10, 10, 18, 0.9);
+    background-image: 
+        radial-gradient(circle at center, rgba(255, 42, 109, 0.2) 0%, transparent 70%);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+}
+
+.game-over-content {
+    background-color: rgba(10, 10, 18, 0.95);
+    border: 2px solid #ff2a6d;
+    border-radius: 10px;
+    padding: 40px;
+    text-align: center;
+    box-shadow: 
+        0 0 30px rgba(255, 42, 109, 0.5),
+        inset 0 0 30px rgba(5, 217, 232, 0.1);
+    animation: fadeIn 0.3s ease-out;
+    backdrop-filter: blur(10px);
+}
+
+.game-over-content h2 {
+    font-size: 2rem;
+    color: #ff2a6d;
+    margin-bottom: 20px;
+    text-shadow: 0 0 15px rgba(255, 42, 109, 0.7);
+}
+
+.game-over-content p {
+    font-size: 1.2rem;
+    color: #05d9e8;
+    margin-bottom: 30px;
+    text-shadow: 0 0 5px rgba(5, 217, 232, 0.5);
+}
+
+.game-over-content p span {
+    font-weight: 700;
+    color: #0071e3;
+}
+
+/* 动画效果 */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 操作规则说明样式 - 赛博朋克风格 */
+.game-instructions {
+    background-color: rgba(10, 10, 18, 0.8);
+    border: 1px solid #00ccff;
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 20px;
+    box-shadow: 
+        0 0 15px rgba(0, 204, 255, 0.2),
+        inset 0 0 20px rgba(255, 149, 0, 0.1);
+    backdrop-filter: blur(5px);
+    position: relative;
+    z-index: 1;
+}
+
+.game-instructions h3 {
+    color: #ff9500;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 1.2rem;
+    text-shadow: 0 0 5px rgba(255, 149, 0, 0.7);
+}
+
+/* 隐藏所有列表点，包括内嵌列表 */
+.game-instructions ul,
+.game-instructions ul ul {
+    list-style-type: none !important;
+    padding-left: 0 !important;
+}
+
+.game-instructions li,
+.game-instructions ul li {
+    margin-bottom: 8px;
+    padding-left: 0 !important;
+    position: relative;
+    line-height: 1.4;
+    color: #00ccff;
+}
+
+/* 隐藏所有列表点的伪元素 */
+.game-instructions li::before,
+.game-instructions ul li::before {
+    display: none !important;
+    content: none !important;
+}
+
+/* 为内嵌列表添加适当的左侧边距 */
+.game-instructions ul ul {
+    margin-left: 20px;
+}
+
+/* 为加粗文字添加下划线 */
+.game-instructions strong {
+    color: #ff9500;
+    text-shadow: 0 0 5px rgba(255, 149, 0, 0.5);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .game-controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .control-group {
+        justify-content: center;
+    }
+    
+    .game-container {
+        flex-direction: column;
+    }
+    
+    .game-info {
+        flex-direction: row;
+        justify-content: center;
+        width: 100%;
+    }
+    
+    #gameCanvas {
+        width: 100%;
+        max-width: 350px;
+        height: auto;
+    }
+}
