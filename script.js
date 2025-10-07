@@ -82,28 +82,40 @@ function initGame() {
 function updateMapSize() {
     const mapSize = mapSizeSelect.value;
     
+    // 获取可用宽度（考虑移动设备屏幕尺寸）
+    let availableWidth = window.innerWidth - 40; // 留出一些边距
+    if (availableWidth > 450) availableWidth = 450; // 设置最大宽度
+    
     // 根据用户需求调整：小地图20*20，中地图30*30，大地图40*40
+    let gridCount;
+    
     switch(mapSize) {
         case 'small':
-            gridSize = 20; // 网格大小（像素）
-            canvasWidth = 400; // 20*20网格
-            canvasHeight = 400;
-            break;
-        case 'medium':
-            gridSize = 13; // 调整网格大小以适应30*30网格
-            canvasWidth = 390;
-            canvasHeight = 390;
+            gridCount = 20;
             break;
         case 'large':
-            gridSize = 10; // 调整网格大小以适应40*40网格
-            canvasWidth = 400;
-            canvasHeight = 400;
+            gridCount = 40;
+            break;
+        default: // medium
+            gridCount = 30;
             break;
     }
     
-    // 更新画布尺寸
+    // 根据可用宽度和网格数量计算网格大小和画布尺寸
+    gridSize = Math.floor(availableWidth / gridCount);
+    canvasWidth = gridSize * gridCount;
+    canvasHeight = canvasWidth; // 保持正方形
+    
+    // 设置画布尺寸
     canvas.width = canvasWidth;
     canvas.height = canvasHeight;
+    
+    // 重置游戏
+    resetGame();
+    
+    // 修复移动端画布样式问题
+    canvas.style.width = `${canvasWidth}px`;
+    canvas.style.height = `${canvasHeight}px`;
 }
 
 // 重置游戏
@@ -444,16 +456,16 @@ function bindEvents() {
     // 移动端加速按钮长按事件
     mobileSpeedBtn.addEventListener('mousedown', startMobileAcceleration);
     mobileSpeedBtn.addEventListener('touchstart', (e) => {
-        e.preventDefault(); // 防止触摸事件触发鼠标事件
+        // 移除preventDefault，允许移动设备正常响应
         startMobileAcceleration();
-    });
+    }, { passive: true });
     
     // 释放加速按钮
     document.addEventListener('mouseup', stopMobileAcceleration);
     document.addEventListener('touchend', (e) => {
-        e.preventDefault();
+        // 移除preventDefault，允许移动设备正常响应
         stopMobileAcceleration();
-    });
+    }, { passive: true });
     
     // 离开按钮区域时停止加速
     document.addEventListener('mouseleave', stopMobileAcceleration);
@@ -540,17 +552,13 @@ function bindEvents() {
     let touchStartY = 0;
     
     canvas.addEventListener('touchstart', (e) => {
-        e.preventDefault();
+        // 移除preventDefault，允许移动设备正常响应
         touchStartX = e.touches[0].clientX;
         touchStartY = e.touches[0].clientY;
-    }, { passive: false });
-    
-    canvas.addEventListener('touchmove', (e) => {
-        e.preventDefault();
-    }, { passive: false });
+    }, { passive: true });
     
     canvas.addEventListener('touchend', (e) => {
-        e.preventDefault();
+        // 移除preventDefault，允许移动设备正常响应
         if (!gameRunning && !isPaused) {
             startGame();
             return;
@@ -562,23 +570,32 @@ function bindEvents() {
         const diffX = touchEndX - touchStartX;
         const diffY = touchEndY - touchStartY;
         
+        // 设置一个合理的阈值，避免轻微触摸被误识别为滑动
+        const swipeThreshold = 20;
+        
         // 判断滑动方向
         if (Math.abs(diffX) > Math.abs(diffY)) {
             // 水平滑动
-            if (diffX > 0 && direction !== 'left') {
-                nextDirection = 'right';
-            } else if (diffX < 0 && direction !== 'right') {
-                nextDirection = 'left';
+            if (Math.abs(diffX) > swipeThreshold) {
+                if (diffX > 0 && direction !== 'left') {
+                    nextDirection = 'right';
+                } else if (diffX < 0 && direction !== 'right') {
+                    nextDirection = 'left';
+                }
             }
         } else {
             // 垂直滑动
-            if (diffY > 0 && direction !== 'up') {
-                nextDirection = 'down';
-            } else if (diffY < 0 && direction !== 'down') {
-                nextDirection = 'up';
+            if (Math.abs(diffY) > swipeThreshold) {
+                if (diffY > 0 && direction !== 'up') {
+                    nextDirection = 'down';
+                } else if (diffY < 0 && direction !== 'down') {
+                    nextDirection = 'up';
+                }
             }
         }
-    }, { passive: false });
+    }, { passive: true });
+    
+    // 移除touchmove监听器，避免干扰移动设备的默认行为
 }
 
 // 移动端开始加速
@@ -603,3 +620,6 @@ function stopMobileAcceleration() {
 
 // 初始化游戏
 initGame();
+
+// 监听窗口大小变化，动态调整画布尺寸
+window.addEventListener('resize', updateMapSize);

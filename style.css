@@ -264,10 +264,10 @@ h1 {
 
 /* 移动端加速按钮 */
 .mobile-speed-btn {
-    width: 80px; /* 缩小5倍 */
-    height: 80px; /* 缩小5倍 */
+    width: 80px;
+    height: 80px;
     border-radius: 50%;
-    font-size: 0.8rem; /* 字体也缩小5倍 */
+    font-size: 0.8rem;
     padding: 0;
     background: linear-gradient(45deg, #ff9500, #ff2a6d);
     color: white;
